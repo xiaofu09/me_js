@@ -1,71 +1,41 @@
 //判断是否为json
 function isJSON(str) {
-
     if (typeof str == 'string') {
-
         try {
-
             var obj=JSON.parse(str);
-
             if(typeof obj == 'object' && obj ){
-
                 return true;
-
             }else{
-
                 return false;
-
             }
-
         } catch(e) {
-
             return false;
-
         }
-
     }
-
     return false
-
 }
 
 //零食零售价计算
-
 function sjjs(jhj,lr) {
-
    var jhj=Number(jhj)
-
    var lsj
-
    if (Math.round(jhj+lr)>jhj+lr){
-
       lsj=Math.round(jhj+lr)-0.5
-
    } else {
-
       lsj=Math.round(jhj+lr)
-
    }
-
    return lsj
-
 }
 
 
 //me库协议头转换
-
 function headers_str(str){
-
-    var headers=str.replace(/(.*?): (.*?)$/gm,"'$1'":"'$2'")
-
-    headers=th.replace(/\n/gm,",")
-
+    var headers=str.replace(/(.*?): (.*?)$/gm,"'$1':'$2'")
+    headers=headers.replace(/\n/gm,",")
     return headers
-
 }
 
-//js 实现占位符
-
+//js 实现占位符  "{0}dkdj{1}".format(1,2)
 String.prototype.format = function() {
 		if (arguments.length == 0)
 			return this;
@@ -73,5 +43,3 @@ String.prototype.format = function() {
 			s = s.replace(new RegExp("\\{" + i + "\\}", "g"), arguments[i]);
 		return s;
 	};
- 
-//"http://{0}/{1}".format("www.songyanjun.net", "index.html")
