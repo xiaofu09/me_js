@@ -35,7 +35,7 @@ function headers_str(str){
     return headers
 }
 
-//js 实现占位符  "{0}dkdj{1}".format(1,2)
+//js 实现占位符
 String.prototype.format = function() {
 		if (arguments.length == 0)
 			return this;
@@ -43,3 +43,43 @@ String.prototype.format = function() {
 			s = s.replace(new RegExp("\\{" + i + "\\}", "g"), arguments[i]);
 		return s;
 	};
+	
+	
+//广轩读取token和协议头
+function f_token_headers(path){
+    if (path==null || path==""){
+        return false
+    }
+    //读取文件内容
+    f = file(path)
+    //  /sdcard/ceshi/html.htm 打开文件
+    var a = f.readLines() //读取文件所有文本行到a变量
+    f.close() //关闭文件
+    var s =JSON.parse(a) //源码转换json格式
+    let token=s.token
+    let headers=s.headers
+    if (token==null || token=="" || headers==null || headers==""){
+        return false
+    }
+    return [token,headers]
+}
+
+
+//广轩写token和协议头
+function w_token_headers(t_str,h_str,path){
+    if (t_str==null || t_str=="" || h_str==null || h_str==""){
+        return false
+    }
+    let text={"token":t_str,"headers":encodeURIComponent(t_str)}
+    text=JSON.stringify(text)//json转换文本
+    //写出文件内容
+    try {
+        f = file(path) //打开文件
+        f.write(text) //fhxx为保存内容
+        f.close() //关闭文件
+        return true
+    } catch (e) {
+        return false
+    }    
+    return false
+}
